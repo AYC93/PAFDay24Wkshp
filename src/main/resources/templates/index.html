@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front Page</title>
+</head>
+<body>
+    <form method="POST" action="/order" th:object="${products}">
+        <table>
+            <tr>
+                <td>Product</td>
+                <td>
+                    <select th:field="*{name}">
+                        <!-- parsing information from product 
+                            list to get names -->
+                        <option th:each="p: ${productList}"
+                                th:value="${p.getName()}"
+                                th:text="${p.getName()}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Qty:
+                    <td>
+                        <input type="number" th:field="*{qty}" min="1">
+                    </td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <button type="submit">Add</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    
+</body>
+</html>
