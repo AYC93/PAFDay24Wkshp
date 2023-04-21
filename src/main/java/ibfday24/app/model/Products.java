@@ -9,6 +9,10 @@ public class Products {
     private String name;
     private double stdPrice;
     private double discount;
+    /*  
+        added later as wasn't thought of initially, if not mapped
+        initially to products, have to be mapped separately
+    */ 
     private int qty;
 
     public int getId() {return id;}

@@ -1,11 +1,11 @@
 package ibfday24.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ibfday24.app.model.Order;
 import ibfday24.app.model.OrderDetails;
 import ibfday24.app.model.Products;
 import ibfday24.app.repository.OrderRepository;
@@ -21,25 +21,39 @@ public class OrderService {
         return ordRepo.getAllProducts();
     }
 
-    public OrderDetails setPriceToOrderDetails(Products p){
-        // order details map out to each product
-        OrderDetails ordDetails = new OrderDetails();
-
-        ordDetails.setProduct(p.getName());
-        
-
-        return ordDetails;
-
-    }
-
-    public double unitPrice(Products p,OrderDetails orD, double costPrice){
+    
+    /* 
+    Product inside to see what is the price, price of each individual
+    object mapped in orderRepo 
+    */ 
+    public double unitPrice(Products p){
         p = new Products();
-        orD = new OrderDetails();
-        costPrice = p.getStdPrice();
+        double costPrice = p.getStdPrice();
         double discount = p.getDiscount();
         double unitPrice = costPrice * discount * (1 + tax);
         return unitPrice;
     }
+    public List<OrderDetails> setPriceToOrderDetails(List<Products> prodList){
+        // order details map out to each product
+        OrderDetails ordDetails = new OrderDetails();
+        List<OrderDetails> ordDetailsList = new ArrayList<>();
 
+        
+        /*  OrderDetails(int id, String product, 
+            double unit_price, double discount, int quantity) 
+            
+            set product individually to ordDetails, then add the 
+            singular obj to the list   */ 
+        for(Products p: prodList){
+            ordDetails.setProduct(p.getName());
+            ordDetails.setDiscount(p.getDiscount());
+            ordDetails.setQuantity(p.getQty());
+            ordDetails.setUnit_price(unitPrice(p));
 
+            ordDetailsList.add(ordDetails);
+        }
+
+        return ordDetailsList;
+    }
+    
 }
