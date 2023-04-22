@@ -2,6 +2,8 @@ package ibfday24.app.model;
 
 import java.time.LocalDate;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class Order {
     private int orderId;
     private LocalDate orderDate;
@@ -58,7 +60,14 @@ public class Order {
         this.tax = tax;
     }
     
-    // public static DateTime createDateTime(){
-        
+    // input customer name, shipping address and notes : customer_name, ship_address, notes
+    public Order inputFromHTTP(HttpServletRequest req){
+        Order ord = new Order();
+        ord.setCustomerName(req.getParameter("customerName"));
+        ord.setShipAddress(req.getParameter("shipAddress"));
+        ord.setNotes(req.getParameter("notes"));
+        return ord;
+    }
+    
     }
 
