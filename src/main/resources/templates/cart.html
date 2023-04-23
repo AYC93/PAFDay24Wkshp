@@ -7,7 +7,7 @@
     <title>Front Page</title>
 </head>
 <body>
-    <form method="POST" action="/order" th:object="${products}">
+    <form method="POST" action="/order/checkout" th:object="${products}">
         <table>
             <tr>
                 <td>Product</td>
@@ -34,9 +34,6 @@
                 </td>
             </tr>
         </table>
-    </form>
-
-    <form method="POST" action="/order/checkout" th:object="${products}">
         <!-- If list is empty, do not display, if list not empty, display -->
         <table border="1" th:if="${!#lists.isEmpty(cart)}" th:object="${cart}">
             <tr>
@@ -49,38 +46,13 @@
                 <td th:text="${i.name}"></td>
                 <td th:text="${i.qty}"></td>
             </tr>
-            
-        <tfoot>
             <tr>
-                <td colspan="2">
-                <form method="post" action="/checkout">
-                <tr>
-                    <td>Customer Name:</td>
-                    <td>
-                        <input type="text" name="customerName" required />
-                    </td>
-                </tr>
-        
-                <tr>
-                    <td>Shipping Address:</td>
-                    <td>
-                        <input type="text" name="shipAddress" required />
-                    </td>
-                </tr>
-        
-                <tr>
-                    <td>Notes:</td>
-                    <td>
-                        <textarea cols="30" rows="5" placeholder="Any additional notes?" name="notes"></textarea>
-                    </td>
-                </tr>            
-        <tr>
-            <td>
-            <button type="submit">Submit order</button>
-            </td>
-        </tr>
-    </table>
-        
+                <button type="submit">Submit order</button>
+            </tr>
+
+        </table>
+
+
     </form>
     
 </body>

@@ -60,8 +60,8 @@ public class Order {
         this.tax = tax;
     }
     
-    // input customer name, shipping address and notes : customer_name, ship_address, notes
-    public Order inputFromHTTP(HttpServletRequest req){
+    // input customer name, shipping address and notes : customer_name, ship_address, notes. think about how the information is parsed in
+    public static Order inputFromHTTP(HttpServletRequest req){
         Order ord = new Order();
         ord.setCustomerName(req.getParameter("customerName"));
         ord.setShipAddress(req.getParameter("shipAddress"));

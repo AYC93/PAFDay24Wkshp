@@ -1,5 +1,8 @@
 package ibfday24.app.repository;
 
+import java.math.BigInteger;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import ibfday24.app.model.Order;
 import ibfday24.app.model.OrderDetails;
 import ibfday24.app.model.Products;
 
@@ -57,7 +61,22 @@ public class OrderRepository {
             return product;
         }
 
-    // to insert values into order_details, primarykey to be populated by the streaming of values, for batch updates
+    // date added using mysql, customer_name, ship_address, notes, tax, the intValue to be returned in the insertIntoOrderDetails for orderId
+    public int addOrder(Order order){
+            template.update(conn-> {
+                PreparedStatement statement = conn.prepareStatement(INSERT_NEW_ORDER, Statement.RETURN_GENERATED_KEYS);
+                statement.setString(1, order.getCustomerName());
+                statement.setString(2, order.getCustomerName());
+                statement.setString(3, order.getNotes());
+                return statement;
+            }, keyHolder);
+    
+            BigInteger primaryKey = (BigInteger) keyHolder.getKey();
+            
+            return primaryKey.intValue();
+        }
+
+    // BATCH UPDATE EXAMPLE to insert values into order_details, primarykey to be populated by the streaming of values
     public void insertIntoOrderDetails(List<OrderDetails> orderDetailsList, int orderId){
         List<Object[]> data = orderDetailsList.stream()
                     .map(odl ->{

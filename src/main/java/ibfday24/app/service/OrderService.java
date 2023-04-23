@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import ibfday24.app.exception.OrderException;
+import ibfday24.app.model.Order;
 import ibfday24.app.model.OrderDetails;
 import ibfday24.app.model.Products;
 import ibfday24.app.repository.OrderRepository;
@@ -76,4 +79,18 @@ public class OrderService {
         existingCart.add(newPdt);
         return existingCart;
         }
+
+    //Transactional to do rollback and call all methods to see if the methods are executed
+    @Transactional
+    public int addOrderCheck(Order ord, List<OrderDetails> orderDetails) throws OrderException{
+        int primaryKey = ordRepo.addOrder(ord);
+
+        if(orderDetails.size()>5){
+            throw new OrderException("Order size cannot be more than 5 items");
+        }
+
+        ordRepo.insertIntoOrderDetails(orderDetails, primaryKey);
+
+        return primaryKey;
     }
+}

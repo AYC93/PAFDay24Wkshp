@@ -11,9 +11,9 @@ public class DBQueries {
 
     public static final String INSERT_NEW_ORDER = """
                                                     insert into orders
-                                                    (order_date, customer_name, ship_address, notes, tax)
+                                                    (order_date, customer_name, ship_address, notes)
                                                     VALUES
-                                                    (?, ?, ?, ?)
+                                                    (DATE_FORMAT(DATE(SYSDATE()), '%Y-%m-%d'), ?, ?, ?)
                                                 """;
 
     public static final String INSERT_NEW_ORDER_DETAILS = """

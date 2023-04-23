@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout page</title>
+</head>
+<body>
+        <!-- Defined as the item to be displayed in front controller -->
+    <h1>Order Id is <span th:text="${orderId}"></span></h1>
+    <h2>Total items checked out is <span th:text="${totalItems}"></span></h2>
+    <h2>Items Checked Out:</h2>
+    <table border="1">
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+      </tr>
+      <tr data-th-each="c : ${cart}">
+        <td data-th-text="${c.getName()}"></td>
+        <td data-th-text="${c.getQty()}"></td>
+      </tr>
+    </table>
+
+    <a href ="/" h4>Shop again? </h4>
+</body>
+</html>
