@@ -59,7 +59,8 @@ public class OrderController {
 
         Products pdt = ordSvc.populateProductPriceIntoForm(ordSvc.getAllProducts(), products);
  
-        cart = ordSvc.addProductToCart(cart, products);
+        cart = ordSvc.addProductToCart(cart, pdt);
+        System.out.println(cart);
         
         /* for shopping cart, logic should always be to use an unique identifier to check for the 
          * presence of an existing object, and to increment, otherwise to add new.

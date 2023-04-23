@@ -53,10 +53,12 @@ public class OrderRepository {
         list and checks if its name matches the name of the input, to map price and discount only
         Product object using the equalsIgnoreCase method.
         */
+        // make sure that the correct item is listed here, otherwise it might return 0 value
         for (Products p : productList)
-            if(p.getName().equalsIgnoreCase(product.getName())){
-            p.setStdPrice(product.getStdPrice());
-            p.setDiscount(product.getDiscount());
+            if(product.getName().equalsIgnoreCase(p.getName())){
+            product.setStdPrice(p.getStdPrice());
+            product.setDiscount(p.getDiscount());
+            System.out.println("std price = " + product.getStdPrice());
         }
             return product;
         }

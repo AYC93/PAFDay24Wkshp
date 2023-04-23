@@ -24,8 +24,8 @@ public class OrderService {
         return ordRepo.getAllProducts();
     }
 
-    public Products populateProductPriceIntoForm(List<Products> productList, Products product){
-        return ordRepo.populateProductPriceIntoForm(productList, product);
+    public Products populateProductPriceIntoForm(List<Products> productList, Products products){
+        return ordRepo.populateProductPriceIntoForm(productList, products);
     }
 
     /* 
@@ -33,7 +33,6 @@ public class OrderService {
     object mapped in orderRepo 
     */ 
     public double unitPrice(Products p){
-        p = new Products();
         double costPrice = p.getStdPrice();
         double discount = p.getDiscount();
         double unitPrice = costPrice * discount * (1 + tax);
@@ -56,6 +55,7 @@ public class OrderService {
             ordDetails.setDiscount(p.getDiscount());
             ordDetails.setQuantity(p.getQty());
             ordDetails.setUnit_price(unitPrice(p));
+            System.out.println(ordDetails.getUnit_price());
 
             ordDetailsList.add(ordDetails);
         }
